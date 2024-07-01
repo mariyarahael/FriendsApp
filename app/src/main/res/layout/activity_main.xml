@@ -78,4 +78,14 @@
         android:textColor="#FAF5FAFA"
         android:id="@+id/addbut"/>
 
+
+     <androidx.appcompat.widget.AppCompatButton
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:background="#5D5336"
+         android:layout_margin="10px"
+         android:text="VIEW FRIENDS"
+         android:textColor="#FAF5FAFA"
+         android:id="@+id/viewbut"/>
+
 </LinearLayout>
