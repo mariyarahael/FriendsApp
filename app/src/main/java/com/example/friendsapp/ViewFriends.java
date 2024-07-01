@@ -1,6 +1,7 @@
 package com.example.friendsapp;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -17,10 +18,12 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ViewFriends extends AppCompatActivity {
 String apiUrl="https://friendsapi-re5a.onrender.com/view";
-
+TextView t1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,9 @@ String apiUrl="https://friendsapi-re5a.onrender.com/view";
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_view_friends);
 
-        JsonArrayRequest friend=new JsonArrayRequest(
+        t1=(TextView)findViewById(R.id.tv);
+
+        JsonArrayRequest arrayRequest=new JsonArrayRequest(
                 Request.Method.GET,
                 apiUrl,
                 null,
@@ -36,7 +41,28 @@ String apiUrl="https://friendsapi-re5a.onrender.com/view";
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Toast.makeText(getApplicationContext(),response.toString(), Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(getApplicationContext(),response.toString(), Toast.LENGTH_SHORT).show();
+                         StringBuilder result =new StringBuilder();
+                         for (int i=0; i< response.length();i++)
+                         {
+                             try
+                             {
+                                 JSONObject friend = response.getJSONObject(i);
+                                 String name= friend.getString("name");
+                                 String fname= friend.getString("friendName");
+                                 String nname= friend.getString("friendNickName");
+                                 String des= friend.getString("DescribeYourFriend");
+                                 result.append(name).append(",").append(fname).append(",").append(nname).append(",").append(des).append("\n");
+
+                             }
+                             catch (JSONException e)
+                             {
+                                 throw new RuntimeException(e);
+                             }
+
+                         }
+                       t1.setText(result.toString());
+
                     }
                 },
 
@@ -50,7 +76,7 @@ String apiUrl="https://friendsapi-re5a.onrender.com/view";
         );
 
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(friend);
+        requestQueue.add(arrayRequest);
 
 
     }

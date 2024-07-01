@@ -52,10 +52,10 @@ String apiUrl="https://friendsapi-re5a.onrender.com/adddata";
 
                  JSONObject friend= new JSONObject(); //creating json object
                  try {
-                     friend.put("name","getName");
-                     friend.put("friendName","getFName");
-                     friend.put("friendNickName","getNkName");
-                     friend.put("DescribeYourFriend","getDes");
+                     friend.put("name",getName);
+                     friend.put("friendName",getFName);
+                     friend.put("friendNickName",getNkName);
+                     friend.put("DescribeYourFriend",getDes);
                  } catch (JSONException e) {
                      throw new RuntimeException(e);
                  }
@@ -68,6 +68,10 @@ String apiUrl="https://friendsapi-re5a.onrender.com/adddata";
                          new Response.Listener<JSONObject>() {
                              @Override
                              public void onResponse(JSONObject response) {
+                                 e1.setText("");
+                                 e2.setText("");
+                                 e3.setText("");
+                                 e4.setText("");
                                  Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
                              }
                          },
